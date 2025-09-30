@@ -14,6 +14,9 @@ type UnityAPITypesInstances string
 
 const (
 	UnityAPIBasicSystemInfoInstances UnityAPITypesInstances = UnityAPITypesPrefix + "/basicSystemInfo/instances?compact=true"
+	UnityAPISystemCapacityInstances  UnityAPITypesInstances = UnityAPITypesPrefix + "/systemCapacity/instances?compact=true"
+	UnityAPISystemInstances          UnityAPITypesInstances = UnityAPITypesPrefix + "/system/instances?compact=true"
+	UnityAPILunInstances             UnityAPITypesInstances = UnityAPITypesPrefix + "/lun/instances?compact=true"
 )
 
 /*

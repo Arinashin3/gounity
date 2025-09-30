@@ -27,7 +27,7 @@ type BasicSystemInfoContent struct {
 	EarliestApiVersion  string `json:"earliestApiVersion,omitempty"`
 }
 
-func (_c *UnisphereClient) GetBasicSystemInfo() (*BasicSystemInfoInstances, error) {
+func (_c *UnisphereClient) GetBasicSystemInfoInstances() (*BasicSystemInfoInstances, error) {
 	req, err := api.UnityAPIBasicSystemInfoInstances.NewRequest(_c.endpoint)
 	if err != nil {
 		return nil, err

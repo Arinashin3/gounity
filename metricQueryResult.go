@@ -12,7 +12,7 @@ import (
 type MetricQueryResultInstances struct {
 	Base    string    `json:"@base"`
 	Updated time.Time `json:"updated"`
-	Entries struct {
+	Entries []struct {
 		Content MetricQueryResultContent `json:"content"`
 	} `json:"entries"`
 }

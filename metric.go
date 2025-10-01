@@ -5,72 +5,41 @@ import (
 	"time"
 
 	"github.com/Arinashin3/gounity/api"
+	"github.com/Arinashin3/gounity/types"
 )
 
-type MetricRealTimeQueryInstances struct {
-	Base    string                     `json:"@base"`
-	Updated time.Time                  `json:"updated"`
-	Content MetricRealTimeQueryContent `json:"content"`
+type MetricInstances struct {
+	Base    string    `json:"@base"`
+	Updated time.Time `json:"updated"`
+	Entries []struct {
+		Content MetricContent `json:"content"`
+	} `json:"entries"`
 }
 
-type MetricRealTimeQueryContent struct {
-	Id         int64     `json:"id,omitempty"`
-	Paths      []string  `json:"paths,omitempty"`
-	Interval   int       `json:"interval,omitempty"`
-	Expiration time.Time `json:"expiration,omitempty"`
+type MetricContent struct {
+	Id                    int                  `json:"id,omitempty"`
+	Name                  string               `json:"name,omitempty"`
+	Path                  string               `json:"path,omitempty"`
+	Type                  types.MetricTypeEnum `json:"type,omitempty"`
+	Description           string               `json:"description,omitempty"`
+	IsHistoricalAvailable bool                 `json:"isHistoricalAvailable,omitempty"`
+	IsRealtimeAvailable   bool                 `json:"isRealtimeAvailable,omitempty"`
+	UnitDisplayString     string               `json:"unitDisplayString,omitempty"`
 }
 
-func (_c *UnisphereClient) GetMetricRealTimeQueryInstances(fields []string, filter []string) (*MetricRealTimeQueryInstances, error) {
-	req, err := api.UnityAPIMetricRealTimeQueryInstances.NewRequest(_c.endpoint, nil)
+func (_c *UnisphereClient) GetMetricInstances(fields []string, filter []string) (*MetricInstances, error) {
+	req, err := api.UnityAPIMetricInstances.NewRequest(_c.endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
-	api.UnityAPIMetricRealTimeQueryInstances.WithFields(fields, req)
-	api.UnityAPIMetricRealTimeQueryInstances.WithFilter(filter, req)
+	api.UnityAPIMetricInstances.WithFields(fields, req)
+	api.UnityAPIMetricInstances.WithFilter(filter, req)
 	_c.addHeader(req)
 
 	var body []byte
 	body, err = _c.send(req)
 
-	var data MetricRealTimeQueryInstances
-	err = json.Unmarshal(body, &data)
-	return &data, err
-}
-
-type MetricRealTimeQueryInstancesCreated struct {
-	Content struct {
-		Id             int       `json:"id,omitempty"`
-		Paths          []string  `json:"paths,omitempty"`
-		Interval       int       `json:"interval,omitempty"`
-		MaximumSamples int       `json:"maximumSamples,omitempty"`
-		Expiration     time.Time `json:"expiration,omitempty"`
-	} `json:"content"`
-}
-
-func (_c *UnisphereClient) PostMetricRealTimeQueryInstances(paths []string, interval time.Duration) (*MetricRealTimeQueryInstancesCreated, error) {
-	var reqContent struct {
-		Paths    []string `json:"paths"`
-		Interval int      `json:"interval"`
-	}
-	reqContent.Paths = paths
-	reqContent.Interval = int(interval / time.Second)
-	reqBody, err := json.Marshal(reqContent)
-	if err != nil {
-		return nil, err
-	}
-
-	// s
-	req, err := api.UnityAPIMetricRealTimeQueryInstances.NewRequest(_c.endpoint, reqBody)
-	if err != nil {
-		return nil, err
-	}
-
-	_c.addHeader(req)
-
-	var body []byte
-	body, err = _c.send(req)
-
-	var data MetricRealTimeQueryInstancesCreated
+	var data MetricInstances
 	err = json.Unmarshal(body, &data)
 	return &data, err
 }

@@ -36,7 +36,7 @@ func (_c *UnisphereClient) GetBasicSystemInfoInstances() (*BasicSystemInfoInstan
 	var body []byte
 	body, err = _c.send(req)
 
-	var data *BasicSystemInfoInstances
+	var data BasicSystemInfoInstances
 	err = json.Unmarshal(body, &data)
-	return data, err
+	return &data, err
 }

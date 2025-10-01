@@ -419,3 +419,34 @@ func (s EventCategoryEnum) String() string {
 		return "Unknown"
 	}
 }
+
+type MetricTypeEnum int
+
+const (
+	MetricType32BitsCounter MetricTypeEnum = iota + 2
+	MetricType64BitsCounter
+	MetricTypeRate
+	MetricTypeFact
+	MetricTypeText
+	MetricType32BitsVirtualCounter
+	MetricType64BitsVirtualCounter
+)
+
+func (s MetricTypeEnum) String() string {
+	switch s {
+	case MetricType32BitsCounter:
+		return "32BitsCounter"
+	case MetricType64BitsCounter:
+		return "64BitsCounter"
+	case MetricTypeRate:
+		return "Rate"
+	case MetricTypeFact:
+		return "Fact"
+	case MetricTypeText:
+		return "Text"
+	case MetricType32BitsVirtualCounter:
+		return "32BitsVirtualCounter"
+	default:
+		return "Unknown"
+	}
+}

@@ -2,9 +2,10 @@ package gounity
 
 import (
 	"encoding/json"
+	"time"
+
 	"github.com/Arinashin3/gounity/api"
 	"github.com/Arinashin3/gounity/types"
-	"time"
 )
 
 type MgmtInterfaceInstances struct {
@@ -26,7 +27,7 @@ type MgmtInterfaceContent struct {
 	Gateway         string                      `json:"gateway,omitempty"`
 }
 
-func (_c *UnisphereClient) GetMgmtInterfaceInstances(fields []string, filter string) (*MgmtInterfaceInstances, error) {
+func (_c *UnisphereClient) GetMgmtInterfaceInstances(fields []string, filter []string) (*MgmtInterfaceInstances, error) {
 	req, err := api.UnityAPIMgmtInterfaceInstances.NewRequest(_c.endpoint)
 	if err != nil {
 		return nil, err

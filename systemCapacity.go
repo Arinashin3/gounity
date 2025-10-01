@@ -2,10 +2,11 @@ package gounity
 
 import (
 	"encoding/json"
+	"time"
+
 	"github.com/Arinashin3/gounity/api"
 	"github.com/Arinashin3/gounity/types"
 	"github.com/Arinashin3/gounity/units"
-	"time"
 )
 
 type SystemCapacityInstances struct {
@@ -42,7 +43,7 @@ type SystemTierCapacityContent struct {
 	SizeUsed  units.Bytes        `json:"sizeUsed,omitempty"`
 }
 
-func (_c *UnisphereClient) GetSystemCapacityInstances(fields []string, filter string) (*SystemCapacityInstances, error) {
+func (_c *UnisphereClient) GetSystemCapacityInstances(fields []string, filter []string) (*SystemCapacityInstances, error) {
 	req, err := api.UnityAPISystemCapacityInstances.NewRequest(_c.endpoint)
 	if err != nil {
 		return nil, err

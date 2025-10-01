@@ -2,9 +2,10 @@ package gounity
 
 import (
 	"encoding/json"
+	"time"
+
 	"github.com/Arinashin3/gounity/api"
 	"github.com/Arinashin3/gounity/types"
-	"time"
 )
 
 type EventInstances struct {
@@ -28,7 +29,7 @@ type EventContent struct {
 	Source       string                  `json:"source,omitempty"`
 }
 
-func (_c *UnisphereClient) GetEventInstances(fields []string, filter string) (*EventInstances, error) {
+func (_c *UnisphereClient) GetEventInstances(fields []string, filter []string) (*EventInstances, error) {
 	req, err := api.UnityAPIEventInstances.NewRequest(_c.endpoint)
 	if err != nil {
 		return nil, err

@@ -2,10 +2,11 @@ package gounity
 
 import (
 	"encoding/json"
+	"time"
+
 	"github.com/Arinashin3/gounity/api"
 	"github.com/Arinashin3/gounity/types"
 	"github.com/Arinashin3/gounity/units"
-	"time"
 )
 
 type StorageResourceInstances struct {
@@ -41,7 +42,7 @@ type StorageResourceContent struct {
 	Wwn                      string                        `json:"wwn,omitempty"`
 }
 
-func (_c *UnisphereClient) GetStorageResourceInstances(fields []string, filter string) (*StorageResourceInstances, error) {
+func (_c *UnisphereClient) GetStorageResourceInstances(fields []string, filter []string) (*StorageResourceInstances, error) {
 	req, err := api.UnityAPIStorageResourceInstances.NewRequest(_c.endpoint)
 	if err != nil {
 		return nil, err

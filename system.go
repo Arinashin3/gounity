@@ -2,9 +2,10 @@ package gounity
 
 import (
 	"encoding/json"
+	"time"
+
 	"github.com/Arinashin3/gounity/api"
 	"github.com/Arinashin3/gounity/types"
-	"time"
 )
 
 type SystemInstances struct {
@@ -35,7 +36,7 @@ type SystemContent struct {
 	IsRemoteSysInterfaceAutoPair bool                    `json:"isRemoteSysInterfaceAutoPair,omitempty"`
 }
 
-func (_c *UnisphereClient) GetSystemInstances(fields []string, filter string) (*SystemInstances, error) {
+func (_c *UnisphereClient) GetSystemInstances(fields []string, filter []string) (*SystemInstances, error) {
 	req, err := api.UnityAPISystemInstances.NewRequest(_c.endpoint)
 	if err != nil {
 		return nil, err

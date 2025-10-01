@@ -2,10 +2,11 @@ package gounity
 
 import (
 	"encoding/json"
+	"time"
+
 	"github.com/Arinashin3/gounity/api"
 	"github.com/Arinashin3/gounity/types"
 	"github.com/Arinashin3/gounity/units"
-	"time"
 )
 
 type PoolInstances struct {
@@ -77,7 +78,7 @@ type PoolContent struct {
 	IsAllFlash                    bool                      `json:"isAllFlash,omitempty"`
 }
 
-func (_c *UnisphereClient) GetPoolInstances(filter string, fields []string) (*PoolInstances, error) {
+func (_c *UnisphereClient) GetPoolInstances(fields []string, filter []string) (*PoolInstances, error) {
 	req, err := api.UnityAPIPoolInstances.NewRequest(_c.endpoint)
 	if err != nil {
 		return nil, err

@@ -2,10 +2,11 @@ package gounity
 
 import (
 	"encoding/json"
+	"time"
+
 	"github.com/Arinashin3/gounity/api"
 	"github.com/Arinashin3/gounity/types"
 	"github.com/Arinashin3/gounity/units"
-	"time"
 )
 
 type LunInstances struct {
@@ -84,7 +85,7 @@ type LunContent struct {
 	MigrationState           string      `json:"migrationState,omitempty"`
 }
 
-func (_c *UnisphereClient) GetLunInstances(fields []string, filter string) (*LunInstances, error) {
+func (_c *UnisphereClient) GetLunInstances(fields []string, filter []string) (*LunInstances, error) {
 	req, err := api.UnityAPILunInstances.NewRequest(_c.endpoint)
 	if err != nil {
 		return nil, err

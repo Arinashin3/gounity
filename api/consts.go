@@ -21,6 +21,7 @@ const (
 	UnityAPIStorageResourceInstances UnityAPITypesInstances = UnityAPITypesPrefix + "/storageResource/instances?compact=true"
 	UnityAPIMgmtInterfaceInstances   UnityAPITypesInstances = UnityAPITypesPrefix + "/mgmtInterface/instances?compact=true"
 	UnityAPIEventInstances           UnityAPITypesInstances = UnityAPITypesPrefix + "/event/instances?compact=true"
+	UnityAPIMetricInstances          UnityAPITypesInstances = UnityAPITypesPrefix + "/metric/instances?compact=true"
 )
 
 func (_u UnityAPITypesInstances) NewRequest(endpoint string) (*http.Request, error) {
@@ -38,7 +39,7 @@ func (_u UnityAPITypesInstances) NewRequest(endpoint string) (*http.Request, err
 }
 
 func (_u UnityAPITypesInstances) WithFields(fields []string, req *http.Request) {
-	if fields == nil {
+	if len(fields) == 0 {
 		return
 	}
 	if req.URL.RawQuery != "" {
@@ -47,12 +48,18 @@ func (_u UnityAPITypesInstances) WithFields(fields []string, req *http.Request) 
 	req.URL.RawQuery += "fields=" + strings.Join(fields, ",")
 }
 
-func (_u UnityAPITypesInstances) WithFilter(filter string, req *http.Request) {
-	if filter == "" {
+func (_u UnityAPITypesInstances) WithFilter(filter []string, req *http.Request) {
+	if len(filter) == 0 {
 		return
 	}
 	if req.URL.RawQuery != "" {
 		req.URL.RawQuery += "&"
 	}
-	req.URL.RawQuery += "filter=" + filter
+	for i, s := range filter {
+		s = strings.Replace(s, " ", "%20", -1)
+		req.URL.RawQuery += "filter=" + s
+		if i < len(filter)-1 {
+			req.URL.RawQuery += "&"
+		}
+	}
 }

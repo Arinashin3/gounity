@@ -79,13 +79,13 @@ type PoolContent struct {
 }
 
 func (_c *UnisphereClient) GetPoolInstances(fields []string, filter []string) (*PoolInstances, error) {
-	req, err := api.UnityAPIPoolInstances.NewRequest(_c.endpoint)
+	req, err := api.UnityAPIPoolInstances.NewRequest(_c.endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
 	api.UnityAPIPoolInstances.WithFields(fields, req)
 	api.UnityAPIPoolInstances.WithFilter(filter, req)
-	_c.addHeader("GET", req)
+	_c.addHeader(req)
 
 	var body []byte
 	body, err = _c.send(req)

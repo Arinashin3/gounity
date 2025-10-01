@@ -44,13 +44,13 @@ type SystemTierCapacityContent struct {
 }
 
 func (_c *UnisphereClient) GetSystemCapacityInstances(fields []string, filter []string) (*SystemCapacityInstances, error) {
-	req, err := api.UnityAPISystemCapacityInstances.NewRequest(_c.endpoint)
+	req, err := api.UnityAPISystemCapacityInstances.NewRequest(_c.endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
 	api.UnityAPISystemCapacityInstances.WithFields(fields, req)
 	api.UnityAPISystemCapacityInstances.WithFilter(filter, req)
-	_c.addHeader("GET", req)
+	_c.addHeader(req)
 
 	var body []byte
 	body, err = _c.send(req)

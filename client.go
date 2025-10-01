@@ -24,7 +24,7 @@ type UnisphereClient struct {
 	client *http.Client
 }
 
-type StatusUnprocessableEntity struct {
+type StatusError struct {
 	Error struct {
 		ErrorCode      int `json:"errorCode"`
 		HttpStatusCode int `json:"httpStatusCode"`
@@ -52,11 +52,11 @@ func NewClient(endpoint string, username string, password string, insecure bool)
 	}
 }
 
-func (_c *UnisphereClient) addHeader(method string, req *http.Request) {
+func (_c *UnisphereClient) addHeader(req *http.Request) {
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("X-EMC-REST-CLIENT", "true")
 
-	switch method {
+	switch req.Method {
 	case "GET":
 		if !_c.logined {
 			req.Header.Add("Authorization", "Basic "+_c.auth)
@@ -66,6 +66,7 @@ func (_c *UnisphereClient) addHeader(method string, req *http.Request) {
 		if !_c.logined {
 			return
 		}
+		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("EMC-CSRF-TOKEN", _c.token)
 	}
 }
@@ -84,6 +85,12 @@ func (_c *UnisphereClient) send(req *http.Request) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	if resp.Header.Get("EMC-CSRF-TOKEN") != "" {
+		_c.token = resp.Header.Get("EMC-CSRF-TOKEN")
+		_c.logined = true
+	}
+
 	return body, nil
 }
 
@@ -94,7 +101,14 @@ func (_c *UnisphereClient) checkHttpCode(code int, body []byte) error {
 		_c.logined = false
 		return errors.New("Unauthorized")
 	case http.StatusUnprocessableEntity:
-		var data StatusUnprocessableEntity
+		var data StatusError
+		err = json.Unmarshal(body, &data)
+		if err != nil {
+			return err
+		}
+		return errors.New(data.Error.Messages[0].EnUS)
+	case http.StatusInternalServerError:
+		var data StatusError
 		err = json.Unmarshal(body, &data)
 		if err != nil {
 			return err

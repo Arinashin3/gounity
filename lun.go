@@ -86,13 +86,13 @@ type LunContent struct {
 }
 
 func (_c *UnisphereClient) GetLunInstances(fields []string, filter []string) (*LunInstances, error) {
-	req, err := api.UnityAPILunInstances.NewRequest(_c.endpoint)
+	req, err := api.UnityAPILunInstances.NewRequest(_c.endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
 	api.UnityAPILunInstances.WithFields(fields, req)
 	api.UnityAPILunInstances.WithFilter(filter, req)
-	_c.addHeader("GET", req)
+	_c.addHeader(req)
 
 	var body []byte
 	body, err = _c.send(req)

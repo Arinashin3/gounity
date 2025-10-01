@@ -37,13 +37,13 @@ type SystemContent struct {
 }
 
 func (_c *UnisphereClient) GetSystemInstances(fields []string, filter []string) (*SystemInstances, error) {
-	req, err := api.UnityAPISystemInstances.NewRequest(_c.endpoint)
+	req, err := api.UnityAPISystemInstances.NewRequest(_c.endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
 	api.UnityAPISystemInstances.WithFields(fields, req)
 	api.UnityAPISystemInstances.WithFilter(filter, req)
-	_c.addHeader("GET", req)
+	_c.addHeader(req)
 
 	var body []byte
 	body, err = _c.send(req)

@@ -2,8 +2,8 @@ package gounity
 
 import (
 	"encoding/json"
-	"gounity/api"
-	"gounity/types"
+	"github.com/Arinashin3/gounity/api"
+	"github.com/Arinashin3/gounity/types"
 	"time"
 )
 

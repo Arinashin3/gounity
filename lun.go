@@ -2,9 +2,9 @@ package gounity
 
 import (
 	"encoding/json"
-	"gounity/api"
-	"gounity/types"
-	"gounity/units"
+	"github.com/Arinashin3/gounity/api"
+	"github.com/Arinashin3/gounity/types"
+	"github.com/Arinashin3/gounity/units"
 	"time"
 )
 

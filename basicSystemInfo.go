@@ -2,7 +2,7 @@ package gounity
 
 import (
 	"encoding/json"
-	"gounity/api"
+	"github.com/Arinashin3/gounity/api"
 	"time"
 )
 

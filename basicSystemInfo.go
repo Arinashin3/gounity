@@ -2,8 +2,9 @@ package gounity
 
 import (
 	"encoding/json"
-	"github.com/Arinashin3/gounity/api"
 	"time"
+
+	"github.com/Arinashin3/gounity/api"
 )
 
 type BasicSystemInfoInstances struct {
@@ -27,11 +28,11 @@ type BasicSystemInfoContent struct {
 // GetBasicSystemInfoInstances
 // Field를 추가하지 않아도 기본적으로 모든 필드를 제공한다.
 func (_c *UnisphereClient) GetBasicSystemInfoInstances() (*BasicSystemInfoInstances, error) {
-	req, err := api.UnityAPIBasicSystemInfoInstances.NewRequest(_c.endpoint)
+	req, err := api.UnityAPIBasicSystemInfoInstances.NewRequest(_c.endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
-	_c.addHeader("GET", req)
+	_c.addHeader(req)
 
 	var body []byte
 	body, err = _c.send(req)

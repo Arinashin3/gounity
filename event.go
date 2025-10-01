@@ -30,13 +30,13 @@ type EventContent struct {
 }
 
 func (_c *UnisphereClient) GetEventInstances(fields []string, filter []string) (*EventInstances, error) {
-	req, err := api.UnityAPIEventInstances.NewRequest(_c.endpoint)
+	req, err := api.UnityAPIEventInstances.NewRequest(_c.endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
 	api.UnityAPIEventInstances.WithFields(fields, req)
 	api.UnityAPIEventInstances.WithFilter(filter, req)
-	_c.addHeader("GET", req)
+	_c.addHeader(req)
 
 	var body []byte
 	body, err = _c.send(req)

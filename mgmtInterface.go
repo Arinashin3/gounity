@@ -28,13 +28,13 @@ type MgmtInterfaceContent struct {
 }
 
 func (_c *UnisphereClient) GetMgmtInterfaceInstances(fields []string, filter []string) (*MgmtInterfaceInstances, error) {
-	req, err := api.UnityAPIMgmtInterfaceInstances.NewRequest(_c.endpoint)
+	req, err := api.UnityAPIMgmtInterfaceInstances.NewRequest(_c.endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
 	api.UnityAPIMgmtInterfaceInstances.WithFields(fields, req)
 	api.UnityAPIMgmtInterfaceInstances.WithFilter(filter, req)
-	_c.addHeader("GET", req)
+	_c.addHeader(req)
 
 	var body []byte
 	body, err = _c.send(req)

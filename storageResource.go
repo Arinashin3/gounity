@@ -43,13 +43,13 @@ type StorageResourceContent struct {
 }
 
 func (_c *UnisphereClient) GetStorageResourceInstances(fields []string, filter []string) (*StorageResourceInstances, error) {
-	req, err := api.UnityAPIStorageResourceInstances.NewRequest(_c.endpoint)
+	req, err := api.UnityAPIStorageResourceInstances.NewRequest(_c.endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
 	api.UnityAPIStorageResourceInstances.WithFields(fields, req)
 	api.UnityAPIStorageResourceInstances.WithFilter(filter, req)
-	_c.addHeader("GET", req)
+	_c.addHeader(req)
 
 	var body []byte
 	body, err = _c.send(req)

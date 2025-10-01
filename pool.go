@@ -89,7 +89,7 @@ func (_c *UnisphereClient) GetPoolInstances(filter string, fields []string) (*Po
 	var body []byte
 	body, err = _c.send(req)
 
-	var data *PoolInstances
+	var data PoolInstances
 	err = json.Unmarshal(body, &data)
-	return data, err
+	return &data, err
 }

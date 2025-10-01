@@ -320,3 +320,102 @@ func (s StoragePoolTypeEnum) String() string {
 		return "Unknown"
 	}
 }
+
+type InterfaceConfigModeEnum int
+
+const (
+	InterfaceConfigModeDisabled InterfaceConfigModeEnum = iota
+	InterfaceConfigModeStatic
+	InterfaceConfigModeAuto
+)
+
+func (s InterfaceConfigModeEnum) String() string {
+	switch s {
+	case InterfaceConfigModeDisabled:
+		return "Disabled"
+	case InterfaceConfigModeStatic:
+		return "Static"
+	case InterfaceConfigModeAuto:
+		return "Auto"
+	default:
+		return "Unknown"
+	}
+}
+
+type IpProtocolVersionEnum int
+
+const (
+	IpProtocolVersionIPv4 IpProtocolVersionEnum = 4
+	IpProtocolVersionIPv6 IpProtocolVersionEnum = 6
+)
+
+func (s IpProtocolVersionEnum) String() string {
+	switch s {
+	case IpProtocolVersionIPv4:
+		return "IPv4"
+	case IpProtocolVersionIPv6:
+		return "IPv6"
+	default:
+		return "Unknown"
+	}
+}
+
+type SeverityEnum int
+
+const (
+	SeverityEMERGENCY SeverityEnum = iota
+	SeverityALERT
+	SeverityCRITICAL
+	SeverityERROR
+	SeverityWARNING
+	SeverityNOTICE
+	SeverityINFO
+	SeverityDEBUG
+	SeverityOK
+)
+
+func (s SeverityEnum) String() string {
+	switch s {
+	case SeverityEMERGENCY:
+		return "EMERGENCY"
+	case SeverityALERT:
+		return "ALERT"
+	case SeverityCRITICAL:
+		return "CRITICAL"
+	case SeverityERROR:
+		return "ERROR"
+	case SeverityWARNING:
+		return "WARNING"
+	case SeverityNOTICE:
+		return "NOTICE"
+	case SeverityINFO:
+		return "INFO"
+	case SeverityDEBUG:
+		return "DEBUG"
+	case SeverityOK:
+		return "OK"
+	default:
+		return "Unknown"
+	}
+}
+
+type EventCategoryEnum int
+
+const (
+	EventCategoryUser EventCategoryEnum = iota
+	EventCategoryAudit
+	EventCategoryAuthentication
+)
+
+func (s EventCategoryEnum) String() string {
+	switch s {
+	case EventCategoryUser:
+		return "User"
+	case EventCategoryAudit:
+		return "Audit"
+	case EventCategoryAuthentication:
+		return "Authentication"
+	default:
+		return "Unknown"
+	}
+}

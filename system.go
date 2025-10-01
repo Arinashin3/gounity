@@ -2,10 +2,8 @@ package gounity
 
 import (
 	"encoding/json"
-	"errors"
 	"gounity/api"
-	"io"
-	"net/http"
+	"gounity/types"
 	"time"
 )
 
@@ -18,59 +16,41 @@ type SystemInstances struct {
 }
 
 type SystemContent struct {
-	Id                           string            `json:"id,omitempty"`
-	Health                       HealthStruct      `json:"health,omitempty"`
-	Name                         string            `json:"name,omitempty"`
-	Model                        string            `json:"model,omitempty"`
-	SerialNumber                 string            `json:"serialNumber,omitempty"`
-	UuidBase                     int32             `json:"uuidBase,omitempty"`
-	InternalModel                string            `json:"internalModel,omitempty"`
-	Platform                     string            `json:"platform,omitempty"`
-	IsAllFlash                   bool              `json:"isAllFlash,omitempty"`
-	MacAddress                   string            `json:"macAddress,omitempty"`
-	IsEULAAccount                bool              `json:"isEULAAccount,omitempty"`
-	IsUpgradeComplete            bool              `json:"isUpgradeComplete,omitempty"`
-	isAutoFailbackEnabled        bool              `json:"isAutoFailbackEnabled,omitempty"`
-	CurrentPower                 int32             `json:"currentPower,omitempty"`
-	AvgPower                     int32             `json:"avgPower,omitempty"`
-	SupportedUpgradeModels       []SPModelNameEnum `json:"supportedUpgradeModels,omitempty"`
-	IsRemoteSysInterfaceAutoPair bool              `json:"isRemoteSysInterfaceAutoPair,omitempty"`
+	Id                           string                  `json:"id,omitempty"`
+	Health                       types.HealthContent     `json:"health,omitempty"`
+	Name                         string                  `json:"name,omitempty"`
+	Model                        string                  `json:"model,omitempty"`
+	SerialNumber                 string                  `json:"serialNumber,omitempty"`
+	UuidBase                     int32                   `json:"uuidBase,omitempty"`
+	InternalModel                string                  `json:"internalModel,omitempty"`
+	Platform                     string                  `json:"platform,omitempty"`
+	IsAllFlash                   bool                    `json:"isAllFlash,omitempty"`
+	MacAddress                   string                  `json:"macAddress,omitempty"`
+	IsEULAAccount                bool                    `json:"isEULAAccount,omitempty"`
+	IsUpgradeComplete            bool                    `json:"isUpgradeComplete,omitempty"`
+	IsAutoFailbackEnabled        bool                    `json:"isAutoFailbackEnabled,omitempty"`
+	CurrentPower                 int32                   `json:"currentPower,omitempty"`
+	AvgPower                     int32                   `json:"avgPower,omitempty"`
+	SupportedUpgradeModels       []types.SPModelNameEnum `json:"supportedUpgradeModels,omitempty"`
+	IsRemoteSysInterfaceAutoPair bool                    `json:"isRemoteSysInterfaceAutoPair,omitempty"`
 }
 
-func (_c *UnisphereClient) GetSystemInstances(fields []string) (*SystemInstances, error) {
-	inst := api.UnityAPISystemInstances
-	req, err := inst.NewRequest(_c.endpoint)
-	inst.WithFields(fields, req)
+func (_c *UnisphereClient) GetSystemInstances(fields []string, filter string) (*SystemInstances, error) {
+	req, err := api.UnityAPISystemInstances.NewRequest(_c.endpoint)
 	if err != nil {
 		return nil, err
 	}
+	api.UnityAPISystemInstances.WithFields(fields, req)
+	api.UnityAPISystemInstances.WithFilter(filter, req)
 	_c.addHeader("GET", req)
 
-	resp, err := _c.client.Do(req)
+	var body []byte
+	body, err = _c.send(req)
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	switch resp.StatusCode {
-	case http.StatusUnauthorized:
-		_c.logined = false
-	case http.StatusUnprocessableEntity:
-		var data StatusUnprocessableEntity
-		err = json.Unmarshal(body, &data)
-		if err != nil {
-			return nil, err
-		}
-		return nil, errors.New(data.Error.Messages[0].EnUS)
-	}
-
-	var data *SystemInstances
+	var data SystemInstances
 	err = json.Unmarshal(body, &data)
-	return data, err
-
+	return &data, err
 }

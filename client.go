@@ -3,6 +3,9 @@ package gounity
 import (
 	"crypto/tls"
 	"encoding/base64"
+	"encoding/json"
+	"errors"
+	"io"
 	"net/http"
 	"net/http/cookiejar"
 	"time"
@@ -16,9 +19,20 @@ type UnisphereClient struct {
 	auth       string
 	token      string
 	logined    bool
-	accessTime time.Time
+	AccessTime time.Time
 
 	client *http.Client
+}
+
+type StatusUnprocessableEntity struct {
+	Error struct {
+		ErrorCode      int `json:"errorCode"`
+		HttpStatusCode int `json:"httpStatusCode"`
+		Messages       []struct {
+			EnUS string `json:"en-US"`
+		} `json:"messages"`
+		Created time.Time `json:"created"`
+	} `json:"error"`
 }
 
 func NewClient(endpoint string, username string, password string, insecure bool) *UnisphereClient {
@@ -45,9 +59,6 @@ func (_c *UnisphereClient) addHeader(method string, req *http.Request) {
 	switch method {
 	case "GET":
 		if !_c.logined {
-			if time.Since(_c.accessTime).Minutes() < 1 {
-				return
-			}
 			req.Header.Add("Authorization", "Basic "+_c.auth)
 			_c.client.Jar, _ = cookiejar.New(nil)
 		}
@@ -59,13 +70,38 @@ func (_c *UnisphereClient) addHeader(method string, req *http.Request) {
 	}
 }
 
-type StatusUnprocessableEntity struct {
-	Error struct {
-		ErrorCode      int `json:"errorCode"`
-		HttpStatusCode int `json:"httpStatusCode"`
-		Messages       []struct {
-			EnUS string `json:"en-US"`
-		} `json:"messages"`
-		Created time.Time `json:"created"`
-	} `json:"error"`
+func (_c *UnisphereClient) send(req *http.Request) ([]byte, error) {
+	resp, err := _c.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	err = _c.checkHttpCode(resp.StatusCode, body)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
+func (_c *UnisphereClient) checkHttpCode(code int, body []byte) error {
+	var err error
+	switch code {
+	case http.StatusUnauthorized:
+		_c.logined = false
+		return errors.New("Unauthorized")
+	case http.StatusUnprocessableEntity:
+		var data StatusUnprocessableEntity
+		err = json.Unmarshal(body, &data)
+		if err != nil {
+			return err
+		}
+		return errors.New(data.Error.Messages[0].EnUS)
+	default:
+		return nil
+	}
+
 }

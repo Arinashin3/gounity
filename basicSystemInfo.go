@@ -2,10 +2,7 @@ package gounity
 
 import (
 	"encoding/json"
-	"errors"
 	"gounity/api"
-	"io"
-	"net/http"
 	"time"
 )
 
@@ -27,6 +24,8 @@ type BasicSystemInfoContent struct {
 	EarliestApiVersion  string `json:"earliestApiVersion,omitempty"`
 }
 
+// GetBasicSystemInfoInstances
+// Field를 추가하지 않아도 기본적으로 모든 필드를 제공한다.
 func (_c *UnisphereClient) GetBasicSystemInfoInstances() (*BasicSystemInfoInstances, error) {
 	req, err := api.UnityAPIBasicSystemInfoInstances.NewRequest(_c.endpoint)
 	if err != nil {
@@ -34,31 +33,10 @@ func (_c *UnisphereClient) GetBasicSystemInfoInstances() (*BasicSystemInfoInstan
 	}
 	_c.addHeader("GET", req)
 
-	resp, err := _c.client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	switch resp.StatusCode {
-	case http.StatusUnauthorized:
-		_c.logined = false
-	case http.StatusUnprocessableEntity:
-		var data StatusUnprocessableEntity
-		err = json.Unmarshal(body, &data)
-		if err != nil {
-			return nil, err
-		}
-		return nil, errors.New(data.Error.Messages[0].EnUS)
-	}
+	var body []byte
+	body, err = _c.send(req)
 
 	var data *BasicSystemInfoInstances
 	err = json.Unmarshal(body, &data)
 	return data, err
-
 }

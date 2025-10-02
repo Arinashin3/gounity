@@ -11,7 +11,7 @@ func TestName(t *testing.T) {
 	filters = append(filters, "isHistoricalAvailable EQ true")
 	filters = append(filters, "isRealtimeAvailable EQ true")
 	c.GetBasicSystemInfoInstances()
-	d, err := c.GetMetricValueInstances("sp.*.cpu.summary.busyTicks")
+	d, err := c.GetMetricValueInstances("sp.*.physical.disk.*.responseTime")
 	//data, err := c.PostMetricRealTimeQueryInstances([]string{"sp.*.cpu.summary.busyTicks"}, 1*time.Minute)
 	//if err != nil {
 	//	t.Error(err)

@@ -11,7 +11,7 @@ type MetricValueInstances struct {
 	Base    string    `json:"@base"`
 	Updated time.Time `json:"updated"`
 	Entries []struct {
-		Content MetricContent `json:"content"`
+		Content MetricValueContent `json:"content"`
 	} `json:"entries"`
 }
 

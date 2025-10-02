@@ -40,6 +40,9 @@ func (_c *UnisphereClient) GetEventInstances(fields []string, filter []string) (
 
 	var body []byte
 	body, err = _c.send(req)
+	if err != nil {
+		return nil, err
+	}
 
 	var data EventInstances
 	err = json.Unmarshal(body, &data)

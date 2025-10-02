@@ -89,6 +89,9 @@ func (_c *UnisphereClient) GetPoolInstances(fields []string, filter []string) (*
 
 	var body []byte
 	body, err = _c.send(req)
+	if err != nil {
+		return nil, err
+	}
 
 	var data PoolInstances
 	err = json.Unmarshal(body, &data)

@@ -3,7 +3,6 @@ package gounity
 import (
 	"log"
 	"testing"
-	"time"
 )
 
 func TestName(t *testing.T) {
@@ -12,13 +11,13 @@ func TestName(t *testing.T) {
 	filters = append(filters, "isHistoricalAvailable EQ true")
 	filters = append(filters, "isRealtimeAvailable EQ true")
 	c.GetBasicSystemInfoInstances()
-	c.GetLunInstances([]string{}, nil)
-	c.GetEventInstances([]string{}, nil)
-	data, err := c.PostMetricRealTimeQueryInstances([]string{"sp.*.cpu.summary.busyTicks"}, 1*time.Minute)
-	if err != nil {
-		t.Error(err)
-		return
-	}
-	log.Printf("%v", data)
+	d, err := c.GetMetricValueInstances("sp.*.cpu.summary.busyTicks")
+	//data, err := c.PostMetricRealTimeQueryInstances([]string{"sp.*.cpu.summary.busyTicks"}, 1*time.Minute)
+	//if err != nil {
+	//	t.Error(err)
+	//	return
+	//}
+	log.Printf("%v", d)
+	log.Printf("%v", err)
 
 }

@@ -53,6 +53,9 @@ func (_c *UnisphereClient) GetStorageResourceInstances(fields []string, filter [
 
 	var body []byte
 	body, err = _c.send(req)
+	if err != nil {
+		return nil, err
+	}
 
 	var data StorageResourceInstances
 	err = json.Unmarshal(body, &data)

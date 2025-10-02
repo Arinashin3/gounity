@@ -31,6 +31,9 @@ func (_c *UnisphereClient) GetMetricRealTimeQueryInstances(fields []string, filt
 
 	var body []byte
 	body, err = _c.send(req)
+	if err != nil {
+		return nil, err
+	}
 
 	var data MetricRealTimeQueryInstances
 	err = json.Unmarshal(body, &data)

@@ -54,6 +54,9 @@ func (_c *UnisphereClient) GetSystemCapacityInstances(fields []string, filter []
 
 	var body []byte
 	body, err = _c.send(req)
+	if err != nil {
+		return nil, err
+	}
 
 	var data SystemCapacityInstances
 	err = json.Unmarshal(body, &data)

@@ -25,6 +25,7 @@ const (
 	UnityAPIMetricInstances              UnityAPITypesInstances = UnityAPITypesPrefix + "/metric/instances?compact=true"
 	UnityAPIMetricRealTimeQueryInstances UnityAPITypesInstances = UnityAPITypesPrefix + "/metricRealTimeQuery/instances?compact=true"
 	UnityAPIMetricQueryResultInstances   UnityAPITypesInstances = UnityAPITypesPrefix + "/metricQueryResult/instances?compact=true"
+	UnityAPIMetricValueInstances         UnityAPITypesInstances = UnityAPITypesPrefix + "/metricValue/instances?compact=true"
 )
 
 func (_u UnityAPITypesInstances) NewRequest(endpoint string, body []byte) (*http.Request, error) {

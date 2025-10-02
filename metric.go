@@ -38,6 +38,9 @@ func (_c *UnisphereClient) GetMetricInstances(fields []string, filter []string) 
 
 	var body []byte
 	body, err = _c.send(req)
+	if err != nil {
+		return nil, err
+	}
 
 	var data MetricInstances
 	err = json.Unmarshal(body, &data)

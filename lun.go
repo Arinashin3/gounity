@@ -96,6 +96,9 @@ func (_c *UnisphereClient) GetLunInstances(fields []string, filter []string) (*L
 
 	var body []byte
 	body, err = _c.send(req)
+	if err != nil {
+		return nil, err
+	}
 
 	var data LunInstances
 	err = json.Unmarshal(body, &data)

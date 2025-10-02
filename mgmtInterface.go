@@ -38,6 +38,9 @@ func (_c *UnisphereClient) GetMgmtInterfaceInstances(fields []string, filter []s
 
 	var body []byte
 	body, err = _c.send(req)
+	if err != nil {
+		return nil, err
+	}
 
 	var data MgmtInterfaceInstances
 	err = json.Unmarshal(body, &data)

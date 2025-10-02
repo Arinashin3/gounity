@@ -41,6 +41,9 @@ func (_c *UnisphereClient) GetMetricQueryResultInstances(queryId int) (*MetricQu
 	// a
 	var body []byte
 	body, err = _c.send(req)
+	if err != nil {
+		return nil, err
+	}
 
 	var data MetricQueryResultInstances
 	err = json.Unmarshal(body, &data)

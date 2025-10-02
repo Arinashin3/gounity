@@ -27,9 +27,9 @@ type AlertContent struct {
 	Description    string                   `json:"description"`
 	ResolutionId   string                   `json:"resolutionId"`
 	Resolution     string                   `json:"resolution,omitempty"`
-	IsAcknowledged bool                     `json:"isAcknowledged"`
-	DuplicateCount int                      `json:"duplicateCount"`
-	State          types.AlertStateEnum     `json:"state"`
+	IsAcknowledged bool                     `json:"isAcknowledged,omitempty"`
+	DuplicateCount int                      `json:"duplicateCount,omitempty"`
+	State          types.AlertStateEnum     `json:"state,omitempty"`
 }
 
 func (_c *UnisphereClient) GetAlertInstances(fields []string, filter []string) (*AlertInstances, error) {

@@ -365,3 +365,73 @@ var MetricType = map[MetricTypeEnum]string{
 func (_enum MetricTypeEnum) String() string {
 	return MetricType[_enum]
 }
+
+type FilesystemTypeEnum int
+
+const (
+	FilesystemTypeFilesystem FilesystemTypeEnum = iota + 1
+	FilesystemTypeVMware
+)
+
+var FilesystemType = map[FilesystemTypeEnum]string{
+	FilesystemTypeFilesystem: "Filesystem",
+	FilesystemTypeVMware:     "VMware",
+}
+
+func (_enum FilesystemTypeEnum) String() string {
+	return FilesystemType[_enum]
+}
+
+type FLRVersionEnum int
+
+const (
+	FLRVersionOff FLRVersionEnum = iota
+	FLRVersionEnterprise
+	FLRVersionCompliance
+)
+
+var FLRVersion = map[FLRVersionEnum]string{
+	FLRVersionOff:        "Off",
+	FLRVersionEnterprise: "Enterprise",
+	FLRVersionCompliance: "Compliance",
+}
+
+func (_enum FLRVersionEnum) String() string {
+	return FLRVersion[_enum]
+}
+
+type FSSupportedProtocolEnum int
+
+const (
+	FSSupportedProtocolNFS = iota
+	FSSupportedProtocolCIFS
+	FSSupportedProtocolMultiprotocol
+)
+
+var FSSupportedProtocol = map[FSSupportedProtocolEnum]string{
+	FSSupportedProtocolNFS:           "NFS",
+	FSSupportedProtocolCIFS:          "CIFS",
+	FSSupportedProtocolMultiprotocol: "Multiprotocol",
+}
+
+func (_enum FSSupportedProtocolEnum) String() string {
+	return FSSupportedProtocol[FSSupportedProtocolNFS]
+}
+
+type AccessPolicyEnum int
+
+const (
+	AccessPolicyNative AccessPolicyEnum = iota
+	AccessPolicyUnix
+	AccessPolicyWindows
+)
+
+var AccessPolicy = map[AccessPolicyEnum]string{
+	AccessPolicyNative:  "Native",
+	AccessPolicyUnix:    "Unix",
+	AccessPolicyWindows: "Windows",
+}
+
+func (_enum AccessPolicyEnum) String() string {
+	return AccessPolicy[_enum]
+}

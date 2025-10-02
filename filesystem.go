@@ -6,6 +6,7 @@ import (
 
 	"github.com/Arinashin3/gounity/api"
 	"github.com/Arinashin3/gounity/types"
+	"github.com/Arinashin3/gounity/units"
 )
 
 type FilesystemInstances struct {
@@ -17,26 +18,62 @@ type FilesystemInstances struct {
 }
 
 type FilesystemContent struct {
-	Id                           string                  `json:"id,omitempty"`
-	Health                       types.HealthContent     `json:"health,omitempty"`
-	Name                         string                  `json:"name,omitempty"`
-	Model                        string                  `json:"model,omitempty"`
-	SerialNumber                 string                  `json:"serialNumber,omitempty"`
-	UuidBase                     int32                   `json:"uuidBase,omitempty"`
-	InternalModel                string                  `json:"internalModel,omitempty"`
-	Platform                     string                  `json:"platform,omitempty"`
-	IsAllFlash                   bool                    `json:"isAllFlash,omitempty"`
-	MacAddress                   string                  `json:"macAddress,omitempty"`
-	IsEULAAccount                bool                    `json:"isEULAAccount,omitempty"`
-	IsUpgradeComplete            bool                    `json:"isUpgradeComplete,omitempty"`
-	IsAutoFailbackEnabled        bool                    `json:"isAutoFailbackEnabled,omitempty"`
-	CurrentPower                 int32                   `json:"currentPower,omitempty"`
-	AvgPower                     int32                   `json:"avgPower,omitempty"`
-	SupportedUpgradeModels       []types.SPModelNameEnum `json:"supportedUpgradeModels,omitempty"`
-	IsRemoteSysInterfaceAutoPair bool                    `json:"isRemoteSysInterfaceAutoPair,omitempty"`
+	Id                       string                   `json:"id,omitempty"`
+	Health                   types.HealthContent      `json:"health,omitempty"`
+	Name                     string                   `json:"name,omitempty"`
+	Description              string                   `json:"description,omitempty"`
+	Type                     types.FilesystemTypeEnum `json:"type,omitempty"`
+	SizeTotal                units.Bytes              `json:"sizeTotal,omitempty"`
+	SizeUsed                 units.Bytes              `json:"sizeUsed,omitempty"`
+	SizeAllocated            units.Bytes              `json:"sizeAllocated,omitempty"`
+	SizePreallocated         units.Bytes              `json:"sizePreallocated,omitempty"`
+	MinSizeAllocated         units.Bytes              `json:"minSizeAllocated,omitempty"`
+	IsReadOnly               bool                     `json:"isReadOnly,omitempty"`
+	IsThinEnabled            bool                     `json:"isThinEnabled,omitempty"`
+	IsDataReductionEnabled   bool                     `json:"isDataReductionEnabled,omitempty"`
+	DataReductionSizeSaved   units.Bytes              `json:"dataReductionSizeSaved,omitempty"`
+	DataReductionPercent     units.Percentage         `json:"dataReductionPercent,omitempty"`
+	DataReductionRatio       units.Ratio              `json:"dataReductionRatio,omitempty"`
+	IsAdvancedDedupEnabled   bool                     `json:"isAdvancedDedupEnabled,omitempty"`
+	StorageResource          StorageResourceContent   `json:"storageResource,omitempty"`
+	FlrVersion               types.FLRVersionEnum     `json:"flrVersion,omitempty"`
+	IsFlrProtected           bool                     `json:"isFlrProtected,omitempty"`
+	FlrSoftwareClock         string                   `json:"flrSoftwareClock,omitempty"`
+	FlrProtectedMaxRetention string                   `json:"flrProtectedMaxRetention,omitempty"`
+	IsFlrAutoLockEnabled     bool                     `json:"isFlrAutoLockEnabled,omitempty"`
+	IsFlrAutoDeleteEnabled   bool                     `json:"isFlrAutoDeleteEnabled,omitempty"`
+	FlrAutoLockDelay         string                   `json:"flrAutoLockDelay,omitempty"`
+	ErrorThreshold           units.Percentage         `json:"errorThreshold,omitempty"`
+	WarningThreshold         units.Percentage         `json:"warningThreshold,omitempty"`
+	InfoThreshold            units.Percentage         `json:"infoThreshold,omitempty"`
+	IsCIFSSyncWritesEnabled  bool                     `json:"isCIFSSyncWritesEnabled,omitempty"`
+	Pool                     PoolContent              `json:"pool,omitempty"`
+	IsCIFSOpLocksEnabled     bool                     `json:"isCIFSOpLocksEnabled,omitempty"`
+	//NasServer
+	IsCIFSNotifyOnWriteEnabled  bool                          `json:"isCIFSNotifyOnWriteEnabled,omitempty"`
+	IsCIFSNotifyOnAccessEnabled bool                          `json:"isCIFSNotifyOnAccessEnabled,omitempty"`
+	CifsNotifyOnChangeDirDepth  int                           `json:"cifsNotifyOnChangeDirDepth,omitempty"`
+	TieringPolicy               types.TieringPolicyEnum       `json:"tieringPolicy,omitempty"`
+	SupportedProtocols          types.FSSupportedProtocolEnum `json:"supportedProtocols,omitempty"`
+	MetadataSize                units.Bytes                   `json:"metadataSize,omitempty"`
+	MetadataSizeAllocated       units.Bytes                   `json:"metadataSizeAllocated,omitempty"`
+	PerTierSizeUsed             []units.Bytes                 `json:"perTierSizeUsed,omitempty"`
+	SnapsSize                   units.Bytes                   `json:"snapsSize,omitempty"`
+	SnapsSizeAllocated          units.Bytes                   `json:"snapsSizeAllocated,omitempty"`
+	SnapCount                   int                           `json:"snapCount,omitempty"`
+	IsSMBCA                     bool                          `json:"isSMBCA,omitempty"`
+	AccessPolicy                types.AccessPolicyEnum        `json:"accessPolicy,omitempty"`
+	//FolderRenamePolicy
+	//LockingPolicy
+	//Format
+	//HostIOSize
+	//PoolFullPolicy
+	//FileEventSettings
+	//CifsShare
+	//NfsShare
 }
 
-func (_c *UnisphereClient) GetFilesystemInstances(fields []string, filter []string) (*SystemInstances, error) {
+func (_c *UnisphereClient) GetFilesystemInstances(fields []string, filter []string) (*FilesystemInstances, error) {
 	req, err := api.UnityAPIFilesystemInstances.NewRequest(_c.endpoint, nil)
 	if err != nil {
 		return nil, err

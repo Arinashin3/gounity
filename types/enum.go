@@ -13,27 +13,19 @@ const (
 	HealthEnumNonRecoverable HealthEnum = 30
 )
 
-func (h *HealthEnum) String() string {
-	switch *h {
-	case HealthEnumUnknown:
-		return "Unknown"
-	case HealthEnumOk:
-		return "Ok"
-	case HealthEnumOkBut:
-		return "OkBut"
-	case HealthEnumDegraded:
-		return "Degraded"
-	case HealthEnumMinor:
-		return "Minor"
-	case HealthEnumMajor:
-		return "Major"
-	case HealthEnumCritical:
-		return "Critical"
-	case HealthEnumNonRecoverable:
-		return "NonRecoverable"
-	default:
-		return "Unknown"
-	}
+var Health = map[HealthEnum]string{
+	HealthEnumUnknown:        "Unknown",
+	HealthEnumOk:             "Ok",
+	HealthEnumOkBut:          "OkBut",
+	HealthEnumDegraded:       "Degraded",
+	HealthEnumMinor:          "Minor",
+	HealthEnumMajor:          "Major",
+	HealthEnumCritical:       "Critical",
+	HealthEnumNonRecoverable: "NonRecoverable",
+}
+
+func (_enum HealthEnum) String() string {
+	return Health[_enum]
 }
 
 type NodeEnum int
@@ -44,17 +36,14 @@ const (
 	NodeUnknown NodeEnum = 2989
 )
 
-func (s NodeEnum) String() string {
-	switch s {
-	case NodeSPA:
-		return "SPA"
-	case NodeSPB:
-		return "SPB"
-	case NodeUnknown:
-		return "Unknown"
-	default:
-		return "Unknown"
-	}
+var Node = map[NodeEnum]string{
+	NodeSPA:     "SPA",
+	NodeSPB:     "SPB",
+	NodeUnknown: "Unknown",
+}
+
+func (_enum NodeEnum) String() string {
+	return Node[_enum]
 }
 
 type TierTypeEnum int
@@ -66,19 +55,15 @@ const (
 	TierTypeCapacity           TierTypeEnum = 30
 )
 
-func (s TierTypeEnum) String() string {
-	switch s {
-	case TierTypeNone:
-		return "None"
-	case TierTypeExtremePerformance:
-		return "Extreme_Performance"
-	case TierTypePerformance:
-		return "Performance"
-	case TierTypeCapacity:
-		return "Capacity"
-	default:
-		return "Unknown"
-	}
+var TierType = map[TierTypeEnum]string{
+	TierTypeNone:               "None",
+	TierTypeExtremePerformance: "Extreme_Performance",
+	TierTypePerformance:        "Performance",
+	TierTypeCapacity:           "Capacity",
+}
+
+func (_enum TierTypeEnum) String() string {
+	return TierType[_enum]
 }
 
 type TieringPolicyEnum int
@@ -92,23 +77,17 @@ const (
 	TieringPolicyMixed TieringPolicyEnum = 65535
 )
 
-func (s TieringPolicyEnum) String() string {
-	switch s {
-	case TieringPolicyAutotierHigh:
-		return "Autotier_High"
-	case TieringPolicyAutotier:
-		return "Autotier"
-	case TieringPolicyHighest:
-		return "Highest"
-	case TieringPolicyLowest:
-		return "Lowest"
-	case TieringPolicyNoDataMovement:
-		return "No_Data_Movement"
-	case TieringPolicyMixed:
-		return "Mixed"
-	default:
-		return "Unknown"
-	}
+var TieringPolicy = map[TieringPolicyEnum]string{
+	TieringPolicyAutotierHigh:   "Autotier_High",
+	TieringPolicyAutotier:       "Autotier",
+	TieringPolicyHighest:        "Highest",
+	TieringPolicyLowest:         "Lowest",
+	TieringPolicyNoDataMovement: "NoDataMovement",
+	TieringPolicyMixed:          "Mixed",
+}
+
+func (_enum TieringPolicyEnum) String() string {
+	return TieringPolicy[_enum]
 }
 
 type SPModelNameEnum int
@@ -130,39 +109,25 @@ const (
 	SPModelNameSP880
 )
 
-func (s SPModelNameEnum) String() string {
-	switch s {
-	case SPModelNameSP300:
-		return "SP300"
-	case SPModelNameSP400:
-		return "SP400"
-	case SPModelNameSP500:
-		return "SP500"
-	case SPModelNameSP600:
-		return "SP600"
-	case SPModelNameSP350:
-		return "SP350"
-	case SPModelNameSP450:
-		return "SP450"
-	case SPModelNameSP550:
-		return "SP550"
-	case SPModelNameSP650:
-		return "SP650"
-	case SPModelNameVSA2Core:
-		return "VSA2Core"
-	case SPModelNameVSA12Core:
-		return "VSA12Core"
-	case SPModelNameSP380:
-		return "SP380"
-	case SPModelNameSP480:
-		return "SP480"
-	case SPModelNameSP680:
-		return "SP680"
-	case SPModelNameSP880:
-		return "SP880"
-	default:
-		return "Unknown"
-	}
+var SPModelName = map[SPModelNameEnum]string{
+	SPModelNameSP300:     "SP300",
+	SPModelNameSP400:     "SP400",
+	SPModelNameSP500:     "SP500",
+	SPModelNameSP600:     "SP600",
+	SPModelNameSP350:     "SP350",
+	SPModelNameSP450:     "SP450",
+	SPModelNameSP550:     "SP550",
+	SPModelNameSP650:     "SP650",
+	SPModelNameVSA2Core:  "VSA2Core",
+	SPModelNameVSA12Core: "VSA12Core",
+	SPModelNameSP380:     "SP380",
+	SPModelNameSP480:     "SP480",
+	SPModelNameSP680:     "SP680",
+	SPModelNameSP880:     "SP880",
+}
+
+func (_enum SPModelNameEnum) String() string {
+	return SPModelName[_enum]
 }
 
 type StorageResourceTypeEnum int
@@ -177,25 +142,18 @@ const (
 	StorageResourceTypeVVolDatastoreIscsi
 )
 
-func (_n StorageResourceTypeEnum) String() string {
-	switch _n {
-	case StorageResourceTypeFilesystem:
-		return "Filesystem"
-	case StorageResourceTypeConsistencyGroup:
-		return "ConsistencyGroup"
-	case StorageResourceTypeVmwarefs:
-		return "Vmwarefs"
-	case StorageResourceTypeVmwareiscsi:
-		return "Vmwareiscsi"
-	case StorageResourceTypeLun:
-		return "Lun"
-	case StorageResourceTypeVVolDatastoreFS:
-		return "VVolDatastoreFS"
-	case StorageResourceTypeVVolDatastoreIscsi:
-		return "VVolDatastoreIscsi"
-	default:
-		return "Unknown"
-	}
+var StorageResourceType = map[StorageResourceTypeEnum]string{
+	StorageResourceTypeFilesystem:         "Filesystem",
+	StorageResourceTypeConsistencyGroup:   "ConsistencyGroup",
+	StorageResourceTypeVmwarefs:           "Vmwarefs",
+	StorageResourceTypeVmwareiscsi:        "Vmwareiscsi",
+	StorageResourceTypeLun:                "Lun",
+	StorageResourceTypeVVolDatastoreFS:    "VVolDatastoreFS",
+	StorageResourceTypeVVolDatastoreIscsi: "VVolDatastoreIscsi",
+}
+
+func (_enum StorageResourceTypeEnum) String() string {
+	return StorageResourceType[_enum]
 }
 
 type ReplicationTypeEnum int
@@ -207,19 +165,15 @@ const (
 	ReplicationTypeMixed
 )
 
-func (_n ReplicationTypeEnum) String() string {
-	switch _n {
-	case ReplicationTypeNone:
-		return "None"
-	case ReplicationTypeLocal:
-		return "Local"
-	case ReplicationTypeRemote:
-		return "Remote"
-	case ReplicationTypeMixed:
-		return "Mixed"
-	default:
-		return "Unknown"
-	}
+var ReplicationType = map[ReplicationTypeEnum]string{
+	ReplicationTypeNone:   "None",
+	ReplicationTypeLocal:  "Local",
+	ReplicationTypeRemote: "Remote",
+	ReplicationTypeMixed:  "Mixed",
+}
+
+func (_enum ReplicationTypeEnum) String() string {
+	return ReplicationType[_enum]
 }
 
 type ThinStatusEnum int
@@ -230,17 +184,14 @@ const (
 	ThinStatusMixed ThinStatusEnum = 65535
 )
 
-func (s ThinStatusEnum) String() string {
-	switch s {
-	case ThinStatusFalse:
-		return "False"
-	case ThinStatusTrue:
-		return "True"
-	case ThinStatusMixed:
-		return "Mixed"
-	default:
-		return "Unknown"
-	}
+var ThinStatus = map[ThinStatusEnum]string{
+	ThinStatusFalse: "False",
+	ThinStatusTrue:  "True",
+	ThinStatusMixed: "Mixed",
+}
+
+func (_enum ThinStatusEnum) String() string {
+	return ThinStatus[_enum]
 }
 
 type DedupStatusEnum int
@@ -251,17 +202,14 @@ const (
 	DedupStatusMixed
 )
 
-func (s DedupStatusEnum) String() string {
-	switch s {
-	case DedupStatusDisabled:
-		return "Disabled"
-	case DedupStatusEnabled:
-		return "Enabled"
-	case DedupStatusMixed:
-		return "Mixed"
-	default:
-		return "Unknown"
-	}
+var DedupStatus = map[DedupStatusEnum]string{
+	DedupStatusDisabled: "Disabled",
+	DedupStatusEnabled:  "Enabled",
+	DedupStatusMixed:    "Mixed",
+}
+
+func (_enum DedupStatusEnum) String() string {
+	return DedupStatus[_enum]
 }
 
 type RaidTypeEnum int
@@ -278,29 +226,20 @@ const (
 	RaidTypeAutomatic RaidTypeEnum = 48879
 )
 
-func (s RaidTypeEnum) String() string {
-	switch s {
-	case RaidTypeNone:
-		return "None"
-	case RaidTypeRAID5:
-		return "RAID5"
-	case RaidTypeRAID0:
-		return "RAID0"
-	case RaidTypeRAID1:
-		return "RAID1"
-	case RaidTypeRAID3:
-		return "RAID3"
-	case RaidTypeRAID10:
-		return "RAID10"
-	case RaidTypeRAID6:
-		return "RAID6"
-	case RaidTypeMixed:
-		return "Mixed"
-	case RaidTypeAutomatic:
-		return "Automatic"
-	default:
-		return "Unknown"
-	}
+var RaidType = map[RaidTypeEnum]string{
+	RaidTypeNone:      "None",
+	RaidTypeRAID5:     "RAID5",
+	RaidTypeRAID0:     "RAID0",
+	RaidTypeRAID1:     "RAID1",
+	RaidTypeRAID3:     "RAID3",
+	RaidTypeRAID10:    "RAID10",
+	RaidTypeRAID6:     "RAID6",
+	RaidTypeMixed:     "RAID6",
+	RaidTypeAutomatic: "RAID6",
+}
+
+func (_enum RaidTypeEnum) String() string {
+	return RaidType[_enum]
 }
 
 type StoragePoolTypeEnum int
@@ -310,15 +249,13 @@ const (
 	StoragePoolTypeDynamic
 )
 
-func (s StoragePoolTypeEnum) String() string {
-	switch s {
-	case StoragePoolTypeTraditional:
-		return "Traditional"
-	case StoragePoolTypeDynamic:
-		return "Dynamic"
-	default:
-		return "Unknown"
-	}
+var StoragePoolType = map[StoragePoolTypeEnum]string{
+	StoragePoolTypeTraditional: "Traditional",
+	StoragePoolTypeDynamic:     "Dynamic",
+}
+
+func (_enum StoragePoolTypeEnum) String() string {
+	return StoragePoolType[_enum]
 }
 
 type InterfaceConfigModeEnum int
@@ -329,17 +266,14 @@ const (
 	InterfaceConfigModeAuto
 )
 
-func (s InterfaceConfigModeEnum) String() string {
-	switch s {
-	case InterfaceConfigModeDisabled:
-		return "Disabled"
-	case InterfaceConfigModeStatic:
-		return "Static"
-	case InterfaceConfigModeAuto:
-		return "Auto"
-	default:
-		return "Unknown"
-	}
+var InterfaceConfigMode = map[InterfaceConfigModeEnum]string{
+	InterfaceConfigModeDisabled: "Disabled",
+	InterfaceConfigModeStatic:   "Static",
+	InterfaceConfigModeAuto:     "Auto",
+}
+
+func (_enum InterfaceConfigModeEnum) String() string {
+	return InterfaceConfigMode[_enum]
 }
 
 type IpProtocolVersionEnum int
@@ -349,15 +283,13 @@ const (
 	IpProtocolVersionIPv6 IpProtocolVersionEnum = 6
 )
 
-func (s IpProtocolVersionEnum) String() string {
-	switch s {
-	case IpProtocolVersionIPv4:
-		return "IPv4"
-	case IpProtocolVersionIPv6:
-		return "IPv6"
-	default:
-		return "Unknown"
-	}
+var IpProtocolVersion = map[IpProtocolVersionEnum]string{
+	IpProtocolVersionIPv4: "IPv4",
+	IpProtocolVersionIPv6: "IPv6",
+}
+
+func (_enum IpProtocolVersionEnum) String() string {
+	return IpProtocolVersion[_enum]
 }
 
 type SeverityEnum int
@@ -374,29 +306,20 @@ const (
 	SeverityOK
 )
 
-func (s SeverityEnum) String() string {
-	switch s {
-	case SeverityEMERGENCY:
-		return "EMERGENCY"
-	case SeverityALERT:
-		return "ALERT"
-	case SeverityCRITICAL:
-		return "CRITICAL"
-	case SeverityERROR:
-		return "ERROR"
-	case SeverityWARNING:
-		return "WARNING"
-	case SeverityNOTICE:
-		return "NOTICE"
-	case SeverityINFO:
-		return "INFO"
-	case SeverityDEBUG:
-		return "DEBUG"
-	case SeverityOK:
-		return "OK"
-	default:
-		return "Unknown"
-	}
+var Severity = map[SeverityEnum]string{
+	SeverityEMERGENCY: "EMERGENCY",
+	SeverityALERT:     "ALERT",
+	SeverityCRITICAL:  "CRITICAL",
+	SeverityERROR:     "ERROR",
+	SeverityWARNING:   "WARNING",
+	SeverityNOTICE:    "NOTICE",
+	SeverityINFO:      "INFO",
+	SeverityDEBUG:     "DEBUG",
+	SeverityOK:        "OK",
+}
+
+func (_enum SeverityEnum) String() string {
+	return Severity[_enum]
 }
 
 type EventCategoryEnum int
@@ -407,17 +330,14 @@ const (
 	EventCategoryAuthentication
 )
 
-func (s EventCategoryEnum) String() string {
-	switch s {
-	case EventCategoryUser:
-		return "User"
-	case EventCategoryAudit:
-		return "Audit"
-	case EventCategoryAuthentication:
-		return "Authentication"
-	default:
-		return "Unknown"
-	}
+var EventCategory = map[EventCategoryEnum]string{
+	EventCategoryUser:           "User",
+	EventCategoryAudit:          "Audit",
+	EventCategoryAuthentication: "Authentication",
+}
+
+func (_enum EventCategoryEnum) String() string {
+	return EventCategory[_enum]
 }
 
 type MetricTypeEnum int
@@ -432,21 +352,16 @@ const (
 	MetricType64BitsVirtualCounter
 )
 
-func (s MetricTypeEnum) String() string {
-	switch s {
-	case MetricType32BitsCounter:
-		return "32BitsCounter"
-	case MetricType64BitsCounter:
-		return "64BitsCounter"
-	case MetricTypeRate:
-		return "Rate"
-	case MetricTypeFact:
-		return "Fact"
-	case MetricTypeText:
-		return "Text"
-	case MetricType32BitsVirtualCounter:
-		return "32BitsVirtualCounter"
-	default:
-		return "Unknown"
-	}
+var MetricType = map[MetricTypeEnum]string{
+	MetricType32BitsCounter:        "32BitsCounter",
+	MetricType64BitsCounter:        "64BitsCounter",
+	MetricTypeRate:                 "Rate",
+	MetricTypeFact:                 "Fact",
+	MetricTypeText:                 "Text",
+	MetricType32BitsVirtualCounter: "32BitsVirtualCounter",
+	MetricType64BitsVirtualCounter: "64BitsVirtualCounter",
+}
+
+func (_enum MetricTypeEnum) String() string {
+	return MetricType[_enum]
 }

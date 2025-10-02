@@ -22,6 +22,7 @@ const (
 	UnityAPIStorageResourceInstances     UnityAPITypesInstances = UnityAPITypesPrefix + "/storageResource/instances?compact=true"
 	UnityAPIMgmtInterfaceInstances       UnityAPITypesInstances = UnityAPITypesPrefix + "/mgmtInterface/instances?compact=true"
 	UnityAPIEventInstances               UnityAPITypesInstances = UnityAPITypesPrefix + "/event/instances?compact=true"
+	UnityAPIAlertInstances               UnityAPITypesInstances = UnityAPITypesPrefix + "/alert/instances?compact=true"
 	UnityAPIMetricInstances              UnityAPITypesInstances = UnityAPITypesPrefix + "/metric/instances?compact=true"
 	UnityAPIMetricRealTimeQueryInstances UnityAPITypesInstances = UnityAPITypesPrefix + "/metricRealTimeQuery/instances?compact=true"
 	UnityAPIMetricQueryResultInstances   UnityAPITypesInstances = UnityAPITypesPrefix + "/metricQueryResult/instances?compact=true"

@@ -435,3 +435,23 @@ var AccessPolicy = map[AccessPolicyEnum]string{
 func (_enum AccessPolicyEnum) String() string {
 	return AccessPolicy[_enum]
 }
+
+type AlertStateEnum int
+
+const (
+	AlertStateActiveManual AlertStateEnum = iota
+	AlertStateActiveAuto
+	AlertStateInactive
+	AlertStateUpdating
+)
+
+var AlertState = map[AlertStateEnum]string{
+	AlertStateActiveManual: "Active_Manual",
+	AlertStateActiveAuto:   "Active_Auto",
+	AlertStateInactive:     "Inactive",
+	AlertStateUpdating:     "Updating",
+}
+
+func (_enum AlertStateEnum) String() string {
+	return AlertState[_enum]
+}

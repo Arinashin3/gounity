@@ -9,3 +9,8 @@ type HealthContent struct {
 	ResolutionIds  []string   `json:"resolutionIds"`
 	Resolutions    []string   `json:"resolutions"`
 }
+
+type ResourceRefContent struct {
+	Resource string `json:"resource"`
+	Id       string `json:"id"`
+}
